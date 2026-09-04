@@ -1,0 +1,166 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://sdk.virtualitics.com/latest/ (getting-started, concepts/overview, concepts/apps,
+  concepts/steps, concepts/pages, concepts/elements, concepts/data-flow, concepts/assets,
+  concepts/llm, faq, migration-guide, api-reference/*),
+  https://docs.virtualitics.com/hc/en-us/articles/34080541869715-Deploying-an-App-Using-the-Command-Line-Interface-CLI,
+  https://docs.virtualitics.com/hc/en-us/articles/34209823600787-Using-Persistence-Assets-and-Outputs-in-Apps,
+  https://docs.virtualitics.com/hc/en-us/articles/24831148554387-Display-Error-Messages,
+  https://docs.virtualitics.com/hc/en-us/articles/34496480336019-Trigger-Another-App-from-a-Step
+checked: '2026-09-04'
+surface_shape: >-
+  IMPORTANT CONTEXT FOR EVERY FIELD BELOW. Virtualitics does not publish an HTTP API. Its developer
+  contract is a Python programming model — the Virtualitics SDK for authoring Apps, the `vaip` CLI
+  for deploying them into a customer tenant, and pyVIP's WebSocket link to a local Virtualitics
+  Explore instance. Conventions that only exist for HTTP APIs (pagination cursors, request-id
+  headers, error envelopes, rate-limit headers) therefore have no published counterpart, and are
+  recorded as `na` rather than as failures. Conventions that DO apply to a programming model —
+  identity, state, persistence, error display, versioning, reversibility — are recorded from the
+  provider's own documentation.
+contract_discovery:
+  performed: '2026-09-04'
+  result: no machine-readable contract published
+  probed:
+  - 'REST OpenAPI: /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs, /redoc on virtualitics.com, docs.virtualitics.com, sdk.virtualitics.com — all 404'
+  - 'GraphQL: no /graphql surface named in any documentation; nothing to introspect'
+  - 'MCP: tools/list POST to virtualitics.com/mcp (404) and sdk.virtualitics.com/mcp (403); mcp.virtualitics.com NXDOMAIN'
+  - 'A2A: /.well-known/agent-card.json and /.well-known/agent.json — 404 on three hosts, 500 on accounts.virtualitics.com'
+  - 'gRPC/Protobuf: no .proto in the GitHub org (1 archived fork) or in any documentation'
+  - 'WSDL/SOAP: ?wsdl and ?singleWsdl on virtualitics.com and docs.virtualitics.com — no SOAP surface documented'
+  - 'AsyncAPI: /asyncapi.yaml, event catalog — none; the SDK trigger system is in-process, not a published event contract'
+  - 'OGC: no evidence in any documentation of WMS/WFS/WCS/WMTS/CSW or an OGC API — not probed (evidence-led rule)'
+  - 'apis.json: /apis.json, /.well-known/apis.json, /apis.yml — 404 on every resolving host'
+authentication:
+  style: long-lived API token, per user
+  detail: See authentication/virtualitics-authentication.yml.
+  transport: >-
+    pyVIP — VIP_AUTH_TOKEN environment variable or VIP() constructor argument over a WebSocket to
+    the user's own Explore instance. CLI — API key + username + host in a local config written by
+    `vaip config`.
+idempotency:
+  supported: false
+  coverage: none
+  mechanism: null
+  header: null
+  scope: []
+  retention: null
+  note: >-
+    No replay-protection mechanism of any kind is documented. The nearest thing is `vaip deploy`,
+    which is convergent by construction — it diffs the newly built wheel against the previously
+    deployed one and reports Apps installed, failed and removed — so redeploying the same wheel
+    produces the same tenant state. That is idempotent BEHAVIOUR of one command, not an
+    idempotency key an integrator can rely on, and it is not documented as a guarantee. Recorded
+    as `none`, and no `Idempotency` pointer is emitted in apis.yml.
+pagination:
+  style: na
+  note: No HTTP collection endpoints are published. Table elements paginate client-side inside the platform UI.
+field_expansion:
+  supported: na
+metadata:
+  supported: true
+  mechanism: >-
+    Apps and Steps carry declared metadata — App(name, description, is_shareable), Step(title,
+    description, parent, type=StepType.*), and `vaip init` records project name, version,
+    description, authors and licenses into pyproject.toml.
+request_id_tracing:
+  supported: partial
+  mechanism: >-
+    Each App execution is a "flow" with its own row in the platform's App History tab; audit
+    logging is exposed to app authors through the SDK audit module
+    (https://sdk.virtualitics.com/latest/api-reference/audit/). There is no client-visible
+    correlation-id header, because there is no HTTP surface.
+versioning:
+  scheme: major.minor.patch per package; platform gated as VAIP <major>.<minor>
+  client_pin: 'requirements.txt, e.g. virtualitics-sdk>=1.54.0 (the form the migration guide prescribes)'
+  detail: See lifecycle/virtualitics-lifecycle.yml and changelog/virtualitics-changelog.yml.
+error_envelope:
+  shape: na
+  note: >-
+    No HTTP error envelope. Errors reach the user as in-app messages: an App author returns an
+    error page from `action()` after validation, and the SDK documents common message strings —
+    "Unable to include the character '/' in the Flow Title", "Duplicate section titles found",
+    "Element ID not found". There is no numbered error-code registry, so no errors/ artifact is
+    emitted.
+  sources:
+  - https://docs.virtualitics.com/hc/en-us/articles/24831148554387-Display-Error-Messages
+  - https://sdk.virtualitics.com/latest/faq/
+rate_limit_signaling:
+  supported: false
+  headers: []
+  detail: See rate-limits/virtualitics-rate-limits.yml — limit_count 0.
+state_and_persistence:
+  mechanism: >-
+    Data moves between Steps through `self._outLink` (write) and `self._inLink` (read); values
+    placed in _outLink are automatically persisted. Longer-lived state uses the Store /
+    StoreInterface and typed Assets (Dataset, Model, Schema).
+  sources:
+  - https://sdk.virtualitics.com/latest/concepts/data-flow/
+  - https://sdk.virtualitics.com/latest/api-reference/store/
+  - https://docs.virtualitics.com/hc/en-us/articles/34209823600787-Using-Persistence-Assets-and-Outputs-in-Apps
+progress_reporting:
+  mechanism: 'Steps set `self._progress` (0-100) and `self._message` during long operations.'
+  source: https://sdk.virtualitics.com/latest/faq/
+dry_run_mode:
+  supported: false
+  value: na
+  note: >-
+    No dry-run, preview or validate-only mode is documented for `vaip build`, `vaip deploy` or
+    `vaip destroy`. `vaip build` prompts for confirmation ("Build a wheel using pyproject.toml in
+    current directory?") but that is a prompt, not a rehearsal.
+reversibility:
+  applicable: true
+  grade: documented
+  grade_basis: >-
+    Two of the three destructive operations publish a real reversal path, but NO operation
+    publishes a window. Per the rubric that is `documented` (reversal path only), not `verified`
+    (reversal path AND a stated window). No window is asserted here because the provider states
+    none.
+  write_surfaces:
+  - operation: vaip deploy
+    kind: create/update Apps in a tenant
+    reversal: >-
+      Redeploy the previous wheel, or remove the App's .py file from the project folder and rerun
+      `vaip build` + `vaip deploy` — the removed App is then reported under "Apps removed".
+    reversal_operation: vaip build + vaip deploy
+    window: null
+    window_published: false
+    source: https://docs.virtualitics.com/hc/en-us/articles/34080541869715-Deploying-an-App-Using-the-Command-Line-Interface-CLI
+  - operation: vaip destroy
+    kind: delete a VAIP module and every App in it
+    reversal: >-
+      Documented and explicit: "This command deletes the VAIP module defined by the project name,
+      and all the Apps of that module. However, the files will still live on your local machine.
+      If you want these Apps back on the deployment, simply rebuild and redeploy them."
+    reversal_operation: vaip build + vaip deploy
+    window: null
+    window_published: false
+    caveat: >-
+      Reversal depends on the operator still holding the local project files. Nothing on the
+      platform side is restorable, and no retention or undelete period is published.
+    source: https://docs.virtualitics.com/hc/en-us/articles/34080541869715-Deploying-an-App-Using-the-Command-Line-Interface-CLI
+  - operation: trigger_flow_execution()
+    kind: start a run of another App from a Step callback
+    reversal: null
+    reversal_operation: null
+    window: null
+    window_published: false
+    note: >-
+      No cancel, abort or rollback for a triggered flow is documented. A triggered run appears as a
+      new row in App History; nothing published says it can be stopped or undone.
+    source: https://docs.virtualitics.com/hc/en-us/articles/34496480336019-Trigger-Another-App-from-a-Step
+  - operation: Automated Scheduler
+    kind: schedule recurring flow executions
+    reversal: unschedule via the platform UI (documented as an administrative capability, not as a reversal guarantee)
+    reversal_operation: null
+    window: null
+    window_published: false
+    source: https://docs.virtualitics.com/hc/en-us/articles/24675948323219-Automating-Flows-with-Automated-Scheduler
+cross_links:
+  authentication: authentication/virtualitics-authentication.yml
+  lifecycle: lifecycle/virtualitics-lifecycle.yml
+  changelog: changelog/virtualitics-changelog.yml
+  rate_limits: rate-limits/virtualitics-rate-limits.yml
+  conformance: conformance/virtualitics-conformance.yml
+  data_model: data-model/virtualitics-data-model.yml
+  cli: cli/virtualitics-cli.yml

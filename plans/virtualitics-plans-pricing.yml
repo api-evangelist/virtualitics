@@ -1,0 +1,46 @@
+generated: '2026-09-04'
+method: searched
+source: https://virtualitics.com/
+checked: '2026-09-04'
+summary: >-
+  Virtualitics publishes no pricing of any kind. There is no pricing page: the WordPress site
+  answers HTTP 200 at https://virtualitics.com/pricing/ but serves the HOMEPAGE (title
+  "AI Solutions Company | AI By Defense Experts | Virtualitics | AI Readiness", 270,382 bytes) —
+  a soft-200 fallback, not a pricing page, and /pricing/ does not appear in the site's own
+  page-sitemap1.xml. The published commercial motion is "Request a Demo" / "Meet with us" /
+  "Free trial" contact forms. No tier names, no prices, no currency, no billing period, no
+  included quota and no overage rate are published anywhere on the site.
+plan_count: 0
+prices_published: false
+currency: null
+billing_period: null
+public_signup_pricing: false
+plans: []
+commercial_surface:
+- name: Request a Demo
+  url: https://virtualitics.com/request-a-demo/
+  kind: contact form
+- name: Free Trial
+  url: https://virtualitics.com/free-trial/
+  kind: contact form
+  note: >-
+    Resolves to the AI Platform marketing page (title "AI Platform - Virtualitics"); no self-serve
+    signup, no trial terms and no price are stated.
+- name: Meet with us
+  url: https://virtualitics.com/meet-with-us/
+  kind: contact form
+- name: Contact Us
+  url: https://virtualitics.com/contact-us/
+  kind: contact form
+evidence:
+- url: https://virtualitics.com/pricing/
+  status: 200
+  finding: >-
+    soft-200 — body is the homepage, not a pricing page; path absent from page-sitemap1.xml
+- url: https://virtualitics.com/page-sitemap1.xml
+  status: 200
+  finding: 44 pages listed, none of them a pricing page
+note: >-
+  Consistent with the buyer: Virtualitics sells into U.S. defense and government programs, where
+  price is set by contract vehicle rather than a published rate card. Recorded as an honest zero,
+  not as a gap the pipeline failed to find.

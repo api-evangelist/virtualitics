@@ -1,23 +1,156 @@
 aid: virtualitics
 name: Virtualitics
-description: 'Virtualitics is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Virtualitics, Inc. is a Pasadena, California AI software company founded in 2016 on more than a
+  decade of research at Caltech and NASA's Jet Propulsion Laboratory. It builds the Virtualitics AI
+  Platform (VAIP), a secure deployment target for mission-critical AI Apps; Virtualitics Explore, a
+  3D/immersive data exploration client; Virtualitics Predict; the Integrated Readiness Optimization
+  (IRO) application suite; and Iris, a natural-language AI agent over platform data. Its developer
+  surface is Python-first rather than HTTP-first — the Virtualitics SDK (virtualitics-sdk) for
+  authoring multi-step Apps, the Virtualitics CLI (virtualitics-cli, the `vaip` command) for
+  packaging and deploying them into a customer tenant, and pyVIP, a Python API that drives
+  Virtualitics Explore over a WebSocket connection. Deployments run on customer-controlled hosts
+  including NIPR, SIPR, JWICS, ADVANA and ODIN across the U.S. military services.
+image: https://virtualitics.com/wp-content/uploads/2026/06/Virtualitics_Logo_Black.png
 url: https://raw.githubusercontent.com/api-evangelist/virtualitics/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-09-04'
 modified: '2026-09-04'
 tags:
 - Company
-apis: []
+- Artificial Intelligence
+- Data Analytics
+- Data Visualization
+- Machine Learning
+- Defense
+- Government
+- Python
+- SDK
+- Command Line Interface
+apis:
+- aid: virtualitics-ai-platform
+  name: Virtualitics AI Platform (VAIP) Developer Experience
+  image: https://virtualitics.com/wp-content/uploads/2026/06/Virtualitics_Logo_Black.png
+  description: >-
+    The developer surface of the Virtualitics AI Platform. Developers author AI Apps in Python with
+    the Virtualitics SDK (App, Step, Page, Section, Card, Elements, Assets, LLM/Iris, Store, Audit,
+    Triggers), build a wheel and deploy it into their own VAIP tenant with the `vaip` CLI. There is
+    no publicly documented HTTP contract: the platform is delivered per-customer at a tenant host
+    and the SDK/CLI are the published integration path.
+  humanURL: https://docs.virtualitics.com/hc/en-us/categories/34003471469587-Virtualitics-Developer-Experience
+  baseURL: https://{tenant}.virtualitics.com
+  tags:
+  - AI Apps
+  - SDK
+  - CLI
+  - Python
+  properties:
+  - type: Documentation
+    url: https://sdk.virtualitics.com/latest/
+  - type: APIReference
+    url: https://sdk.virtualitics.com/latest/api-reference/app/
+  - type: GettingStarted
+    url: https://sdk.virtualitics.com/latest/getting-started/
+  - type: Examples
+    url: https://sdk.virtualitics.com/latest/examples/
+  - type: Authentication
+    url: authentication/virtualitics-authentication.yml
+  - type: CLI
+    url: cli/virtualitics-cli.yml
+  - type: Components
+    url: components/virtualitics-components.yml
+  - type: DataModel
+    url: data-model/virtualitics-data-model.yml
+  - type: ChangeLog
+    url: changelog/virtualitics-changelog.yml
+- aid: virtualitics-explore-python-api
+  name: Virtualitics Explore Python API (pyVIP)
+  image: https://virtualitics.com/wp-content/uploads/2026/06/Virtualitics_Logo_Black.png
+  description: >-
+    pyVIP is the Virtualitics Python API for Virtualitics Explore. It runs over a WebSocket
+    connection between Virtualitics Explore (server) and a Python session (client), launched from
+    the API section of the Explore Settings window on a user-chosen port, and authenticated with an
+    API Token generated in the Virtualitics Account Portal (VIP_AUTH_TOKEN), optionally with a
+    client-supplied encryption key (VIP_ENCRYPTION_KEY). Because the server is the user's own
+    Explore instance there is no vendor-hosted base URL.
+  humanURL: https://docs.virtualitics.com/hc/en-us/articles/25110834780435-Using-the-Virtualitics-Python-API-pyVIP
+  tags:
+  - Data Visualization
+  - Python
+  - WebSocket
+  properties:
+  - type: GettingStarted
+    url: https://docs.virtualitics.com/hc/en-us/articles/25103039519635-Setting-up-the-Virtualitics-Python-API-pyVIP-with-Virtualitics-Explore
+  - type: Examples
+    url: https://docs.virtualitics.com/hc/en-us/articles/25112049215123-Virtualitics-Python-API-Example-Notebooks
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: TrustCenter
+  url: security/virtualitics-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/virtualitics-vulnerability-disclosure.yml
+- type: Security
+  url: security/virtualitics-vulnerability-disclosure.yml
 - type: Website
-  url: https://www.nasdaqprivatemarket.com/
+  url: https://virtualitics.com/
+- type: DeveloperPortal
+  url: https://docs.virtualitics.com/hc/en-us/categories/34003471469587-Virtualitics-Developer-Experience
+- type: Documentation
+  url: https://docs.virtualitics.com/hc/en-us
+- type: APIReference
+  url: https://sdk.virtualitics.com/latest/api-reference/app/
+- type: GettingStarted
+  url: https://sdk.virtualitics.com/latest/getting-started/
+- type: Support
+  url: https://virtualitics.com/contact-us/
+- type: Blog
+  url: https://virtualitics.com/virtualitics-blog/
+- type: GitHubOrganization
+  url: https://github.com/virtualitics
+- type: SignUp
+  url: https://accounts.virtualitics.com
+- type: TermsOfService
+  url: https://virtualitics.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://virtualitics.com/privacy-policy/
+- type: LLMsTxt
+  url: llms/virtualitics-llms.txt
+- type: Packages
+  url: packages/virtualitics-packages.yml
+- type: SDKs
+  url: packages/virtualitics-packages.yml
+- type: CLI
+  url: cli/virtualitics-cli.yml
+- type: Components
+  url: components/virtualitics-components.yml
+- type: ChangeLog
+  url: changelog/virtualitics-changelog.yml
+- type: Conformance
+  url: conformance/virtualitics-conformance.yml
+- type: Compliance
+  url: conformance/virtualitics-conformance.yml
+- type: Lifecycle
+  url: lifecycle/virtualitics-lifecycle.yml
+- type: Authentication
+  url: authentication/virtualitics-authentication.yml
+- type: DomainSecurity
+  url: security/virtualitics-domain-security.yml
+- type: Conventions
+  url: conventions/virtualitics-conventions.yml
+- type: DataModel
+  url: data-model/virtualitics-data-model.yml
+- type: Plans
+  url: plans/virtualitics-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/virtualitics-rate-limits.yml
+x-enrichment:
+  date: '2026-09-04'
+  status: enriched
+  artifacts_added: 17
+  pass: local-v3

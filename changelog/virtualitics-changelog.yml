@@ -1,0 +1,92 @@
+generated: '2026-09-04'
+method: searched
+source: https://sdk.virtualitics.com/latest/migration-guide/
+checked: '2026-09-04'
+summary: >-
+  Virtualitics publishes no dated changelog. The one public record of what changed is the
+  Virtualitics SDK Migration Guide, which is version-keyed rather than date-keyed: it walks each
+  minor upgrade from 1.46.x to 1.54.x with New Features, Breaking Changes and Action Required, and
+  states the current version as 1.61.x. The Help Center has a "Release Notes by Date" section
+  (https://docs.virtualitics.com/hc/en-us/sections/21955755696147-Release-Notes-by-Date) but it
+  contains ZERO published articles. Nothing is published for the CLI or for pyVIP beyond PyPI
+  release dates.
+scheme: semantic-ish (major.minor.patch), documented per minor band
+dated: false
+current_version: 1.61.x
+current_version_source: >-
+  "Current Version: 1.61.x" heading on the migration guide, 2026-09-04. Note the latest
+  virtualitics-sdk wheel on PyPI is 1.62.0 (published 2026-04-20), so the guide trails the
+  registry by one minor.
+coverage_gap: >-
+  The guide documents 1.46.x through 1.54.x. Upgrades from 1.54 to the current 1.61/1.62 are NOT
+  documented anywhere public — seven minor versions with no published notes.
+entries:
+- version: 1.54.x
+  from_version: 1.53.x
+  date: null
+  breaking: false
+  additions:
+  - Button tertiary style with rounded corners (ButtonStyle.TERTIARY, rounded=True)
+  - 'Expanded ButtonColor palette: AMBER, BLUE, CYAN, FUCHSIA, GREEN, GRASS, INDIGO, ORANGE, PURPLE, RED, TEAL, VIOLET, YELLOW'
+  - GridColumn value_options for single-select dropdowns inside editable table cells
+  action_required: 'requirements.txt: virtualitics-sdk>=1.54.0; no code changes'
+- version: 1.53.x
+  from_version: 1.52.x
+  date: null
+  breaking: false
+  additions:
+  - Table row selection APIs — TableSelectionType enum, programmatic selection through StoreInterface
+  - SegmentedControl configurable controls position, max width, label ellipsis
+  action_required: 'requirements.txt: virtualitics-sdk>=1.53.0'
+- version: 1.52.x
+  from_version: 1.51.x
+  date: null
+  breaking: false
+  additions:
+  - SegmentedControl element (tabbed/segmented views within a Card, built from Segment objects)
+  - SingletonApp — an app type limited to one active instance at a time
+  - 'Trigger system: S3Trigger, AssetTrigger, PostgresTrigger, CompositeTrigger for spawning flows from external events'
+  action_required: 'requirements.txt: virtualitics-sdk>=1.52.0'
+- version: 1.51.x
+  from_version: 1.50.x
+  date: null
+  breaking: true
+  highlights:
+  - 'MAJOR BREAKING: CustomEvent fully removed, with all subclasses — AssetDownloadCustomEvent, TriggerFlowCustomEvent, CustomEventType, CustomEventPosition'
+  - 'Row action classes removed: UpdateRowAction, UpdateRedirectRowAction, RedirectRowAction'
+  - Migration path published — CustomEvent -> Button + standard_event_callback; AssetDownloadCustomEvent -> Button + AssetDownloadCallback
+- version: 1.50.x
+  from_version: 1.49.x
+  date: null
+  breaking: true
+- version: 1.49.x
+  from_version: 1.48.x
+  date: null
+  breaking: true
+  additions:
+  - New callback decorators
+  - New callback classes
+- version: 1.48.x
+  from_version: 1.47.x
+  date: null
+  breaking: true
+- version: 1.47.x
+  from_version: 1.46.x
+  date: null
+  breaking: true
+package_release_history:
+  note: >-
+    Registry publication dates are the only dated change signal Virtualitics emits. See
+    packages/virtualitics-packages.yml.
+  virtualitics-sdk:
+    latest: 1.62.0
+    published: '2026-04-20'
+    releases: 26
+  virtualitics-cli:
+    latest: 2.0.4
+    published: '2026-05-12'
+    releases: 19
+  pyvip:
+    latest: 1.27.1
+    published: '2026-02-11'
+    releases: 29

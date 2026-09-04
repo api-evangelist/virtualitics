@@ -1,0 +1,124 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://sdk.virtualitics.com/latest/concepts/elements/,
+  https://sdk.virtualitics.com/latest/api-reference/elements/ (accordion, button, container,
+  dashboard, dropdowns, inputs, plots, segmented-control, table),
+  https://sdk.virtualitics.com/latest/api-reference/llm/chat/,
+  https://sdk.virtualitics.com/latest/migration-guide/, and the Virtualitics Help Center element
+  articles (Image, InfographData, DataSource, XAI Dashboard, Plotly, Scenario Planning Tool).
+checked: '2026-09-04'
+summary: >-
+  The Virtualitics SDK ships a first-party UI component library — "Elements" — that renders inside
+  the Virtualitics AI Platform. These are NOT embeddable web components for a third-party website:
+  they are Python classes instantiated in an App's `run()`/`action()` methods and rendered by the
+  platform, composed into a Page -> Section -> Card -> Element hierarchy. There is no npm loader,
+  no script tag, no iframe embed and no hosted widget CDN. Recorded here because it is the
+  provider's client-side/UI component surface, and because a consumer evaluating Virtualitics is
+  choosing this library the moment they choose the platform.
+distribution:
+  model: in-platform, rendered by the Virtualitics AI Platform
+  loader_library: null
+  package: virtualitics-sdk (PyPI)
+  embeddable_outside_platform: false
+composition_model:
+  hierarchy:
+  - App
+  - Step
+  - Page
+  - Section
+  - Card
+  - Element
+  addressing: >-
+    Every element carries a unique `id`; a Step reads user input with
+    `self.page.get_element_by_id("<id>").value` inside `action()`.
+families:
+- family: Display
+  components:
+  - name: Table
+    description: Tabular data with sorting, filtering and searching. Supports editable columns with value_options for single-select cells, and programmatic row selection via TableSelectionType (SINGLE/MULTIPLE) through StoreInterface.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/table/
+  - name: PlotlyPlot
+    description: Interactive Plotly figure embedded in a Card.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/plots/
+  - name: RichText
+    description: Markdown-formatted text block.
+  - name: Image
+    description: Display an image inside a Card.
+    docs: https://docs.virtualitics.com/hc/en-us/articles/34468582025491-Adding-Images-Using-the-Image-Element
+  - name: Infographic / InfographData
+    description: Metrics and KPI display.
+    docs: https://docs.virtualitics.com/hc/en-us/articles/34927766709907-Displaying-Key-Data-with-the-InfographData-Element
+  - name: XAI Dashboard
+    description: Explainable-AI dashboard element for model interpretability.
+    docs: https://docs.virtualitics.com/hc/en-us/articles/34469133855891-Leverage-Explainable-AI-Using-the-XAI-Dashboard-Element
+  - name: Scenario Planning Tool (SPT)
+    description: What-if scenario planning element.
+    docs: https://docs.virtualitics.com/hc/en-us/articles/34492775620115-Incorporating-the-Scenario-Planning-Tool-SPT
+- family: Input
+  components:
+  - name: SingleDropdown
+    description: Select one option.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/dropdowns/
+  - name: MultiDropdown
+    description: Select multiple options.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/dropdowns/
+  - name: TextInput
+    description: Free-text input.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/inputs/
+  - name: NumericSlider
+    description: Numeric value selection.
+  - name: NumericRange
+    description: Numeric range selection.
+  - name: DateTimeRange
+    description: Date/time range selection.
+  - name: DataSource
+    description: File upload / external data source selection element.
+    docs: https://docs.virtualitics.com/hc/en-us/articles/34921554444051-Adding-a-File-Upload-with-the-DataSource-Element
+  - name: Button
+    description: >-
+      Action element with `on_click` callbacks. Styles PRIMARY/SECONDARY/TERTIARY (tertiary added
+      in 1.54, with `rounded`); colors ACCENT, NEUTRAL, ALERT plus AMBER, BLUE, CYAN, FUCHSIA,
+      GREEN, GRASS, INDIGO, ORANGE, PURPLE, RED, TEAL, VIOLET, YELLOW. Since 1.51 Button replaces
+      the removed CustomEvent family.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/button/
+- family: Layout
+  components:
+  - name: Dashboard
+    description: Grid-based layout container.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/dashboard/
+  - name: Row
+    description: Horizontal arrangement.
+  - name: Column
+    description: Vertical arrangement.
+  - name: Container
+    description: Generic layout container.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/container/
+  - name: Accordion
+    description: Collapsible content section.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/accordion/
+  - name: SegmentedControl
+    description: >-
+      Tabbed/segmented views within a Card, built from Segment objects. Added in 1.52; configurable
+      controls position, max width and label ellipsis added in 1.53.
+    docs: https://sdk.virtualitics.com/latest/api-reference/elements/segmented-control/
+- family: AI / LLM
+  components:
+  - name: Chat
+    description: >-
+      Conversational element backed by Iris, the Virtualitics LLM agent. Placed on a Page, or
+      driven through app-level LLM callbacks; behavior is shaped with system prompts and custom
+      agents.
+    docs: https://sdk.virtualitics.com/latest/api-reference/llm/chat/
+removed_components:
+- name: CustomEvent (and AssetDownloadCustomEvent, TriggerFlowCustomEvent, CustomEventType, CustomEventPosition)
+  removed_in: 1.51.0
+  replacement: Button with the callback system (standard_event_callback, AssetDownloadCallback)
+  source: https://sdk.virtualitics.com/latest/migration-guide/
+- name: UpdateRowAction, UpdateRedirectRowAction, RedirectRowAction
+  removed_in: 1.51.0
+  replacement: Button callbacks
+  source: https://sdk.virtualitics.com/latest/migration-guide/
+gaps:
+- 'Styling: "Limited customization is available through element properties. Full styling customization is not currently supported." (SDK FAQ)'
+- No design-token, theming or CSS surface is published.

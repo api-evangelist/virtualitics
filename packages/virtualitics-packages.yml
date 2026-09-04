@@ -1,0 +1,124 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  PyPI JSON metadata endpoints (pypi.org/pypi/<name>/json) for pyvip, virtualitics-sdk and
+  virtualitics-cli, plus the provider's own install instructions at
+  https://docs.virtualitics.com/hc/en-us/articles/34015231987347-Installing-the-Virtualitics-SDK-and-CLI-Packages
+  and https://docs.virtualitics.com/hc/en-us/articles/25103039519635-Setting-up-the-Virtualitics-Python-API-pyVIP-with-Virtualitics-Explore.
+  npm, RubyGems, crates.io, NuGet, Maven Central and pkg.go.dev were checked for a first-party
+  Virtualitics client library and returned nothing.
+checked: '2026-09-04'
+summary:
+  first_party_package_count: 3
+  languages:
+  - python
+  note: >-
+    Virtualitics ships a Python-only client surface. All three packages are published by
+    "Virtualitics Engineering" with @virtualitics.com contact addresses, which is what
+    establishes first-party ownership here. There is no JavaScript, Java, .NET, Go or Ruby
+    client library in any public registry.
+packages:
+- language: python
+  registry: pypi
+  name: virtualitics-sdk
+  url: https://pypi.org/project/virtualitics-sdk/
+  install: pip install virtualitics-sdk
+  official: true
+  version: 1.62.0
+  published: '2026-04-20'
+  first_published: '2024-06-12'
+  release_count: 26
+  requires_python: '>=3.11,<3.15'
+  author: Virtualitics Engineering <engineering@virtualitics.com>
+  description: >-
+    The Virtualitics SDK — the Python framework for authoring AI Apps on the Virtualitics AI
+    Platform (App, Step, Page, Section, Card, Elements, Assets, LLM/Iris, Store, Audit, Triggers).
+    PyPI describes the distributed artifact as a "stubs-only wheel": the published package supplies
+    type stubs and autocomplete, and the implementation runs inside the customer's VAIP deployment.
+  docs: https://sdk.virtualitics.com/latest/
+  source: https://pypi.org/pypi/virtualitics-sdk/json
+- language: python
+  registry: pypi
+  name: virtualitics-cli
+  url: https://pypi.org/project/virtualitics-cli/
+  install: pip install virtualitics-cli
+  official: true
+  version: 2.0.4
+  published: '2026-05-12'
+  first_published: '2024-06-12'
+  release_count: 19
+  requires_python: '>=3.14,<3.15'
+  license: MIT
+  author: Virtualitics Engineering <engineering@virtualitics.com>
+  binary: vaip
+  description: >-
+    The Virtualitics CLI. Initializes, packages and deploys Custom Apps to a Virtualitics AI
+    Platform tenant from a local machine. See cli/virtualitics-cli.yml for the command surface.
+  source: https://pypi.org/pypi/virtualitics-cli/json
+  note: >-
+    requires_python on 2.0.4 is >=3.14,<3.15, while the provider's own install article states
+    "We currently support version 3.11". The published wheel and the published prerequisite
+    disagree; recorded as observed, not reconciled.
+- language: python
+  registry: pypi
+  name: pyvip
+  url: https://pypi.org/project/pyvip/
+  install: pip install pyVIP
+  official: true
+  version: 1.27.1
+  published: '2026-02-11'
+  first_published: '2019-02-28'
+  release_count: 29
+  requires_python: '>=3.8,<4.0'
+  license: MIT
+  author: Virtualitics Engineering <dev@virtualitics.com>
+  import_name: virtualitics
+  description: >-
+    The Virtualitics Python API for Virtualitics Explore. Drives Explore programmatically over a
+    WebSocket connection from a Python session.
+  docs_declared: https://api.virtualitics.com
+  docs_status: dead
+  source: https://pypi.org/pypi/pyvip/json
+  note: >-
+    The only project URL pyVIP publishes on PyPI is Documentation -> https://api.virtualitics.com,
+    and that host has NO DNS record as of 2026-09-04 (NXDOMAIN from 8.8.8.8 and 1.1.1.1). Every
+    published pointer to the pyVIP API reference — PyPI metadata, search results, and the docs
+    articles that link "the pyVIP documentation" — now resolves to nothing. The surviving public
+    documentation for pyVIP is the three Zendesk articles under
+    https://docs.virtualitics.com/hc/en-us/sections/25100979510163-Virtualitics-Python-API-pyVIP.
+registries_checked:
+- registry: pypi
+  result: 3 first-party packages
+- registry: npm
+  result: none
+- registry: rubygems
+  result: none
+- registry: crates.io
+  result: none
+- registry: nuget
+  result: none
+- registry: maven-central
+  result: none
+- registry: pkg.go.dev
+  result: none
+- registry: packagist
+  result: none
+not_this_provider:
+- name: vaip
+  registry: pypi
+  reason: >-
+    "GCP Vertex AI Prediction high level SDK" — unrelated to the Virtualitics `vaip` CLI binary.
+    Recorded so a later round does not wire it as a Virtualitics package.
+- name: predict-sdk
+  registry: pypi
+  reason: >-
+    A Python SDK for the Predict.fun protocol (predict.fun). Unrelated to Virtualitics Predict or
+    to the predict-sdk.virtualitics.com documentation host.
+github_organization:
+  found: true
+  url: https://github.com/virtualitics
+  public_repos: 1
+  note: >-
+    The org exists (created 2016-08-02) but publishes exactly one public repository, an archived
+    fork of uwsgi-nginx-flask-docker last updated 2023-01-28. No Virtualitics client library,
+    example app or SDK source is published there.

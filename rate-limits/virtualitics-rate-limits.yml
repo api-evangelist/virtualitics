@@ -1,0 +1,29 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  Full read of the Virtualitics SDK documentation (https://sdk.virtualitics.com/latest/, including
+  getting-started, concepts, api-reference and faq) and all 56 articles in the Virtualitics Help
+  Center, enumerated through the public Zendesk Help Center API at
+  https://docs.virtualitics.com/api/v2/help_center/en-us/articles.json.
+checked: '2026-09-04'
+limit_count: 0
+summary: >-
+  Virtualitics documents no rate limits. There is no published HTTP API to rate-limit: the
+  developer surface is the Python SDK, the `vaip` CLI and pyVIP's WebSocket connection to the
+  user's own Virtualitics Explore instance, all running against a customer-controlled tenant. No
+  X-RateLimit-*, RateLimit-* or Retry-After header is documented, no 429 semantics are described,
+  and no per-key, per-account or per-endpoint allowance appears in any public article.
+scopes: []
+headers: []
+status_on_exhaustion: null
+capacity_signals:
+- signal: dataset size guidance
+  value: >-
+    "While there's no hard limit, datasets >100MB may impact performance. Consider chunking or
+    server-side processing for large data."
+  source: https://sdk.virtualitics.com/latest/faq/
+  kind: performance guidance, not an enforced limit
+note: >-
+  An honest zero. Because the platform is deployed per customer rather than served from a shared
+  multi-tenant API, throughput is a property of the customer's own deployment; there is nothing
+  for the vendor to publish. Re-check if Virtualitics ever ships a hosted HTTP API.

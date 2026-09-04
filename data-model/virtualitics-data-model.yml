@@ -1,0 +1,167 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://sdk.virtualitics.com/latest/concepts/overview/, .../concepts/apps/, .../concepts/steps/,
+  .../concepts/pages/, .../concepts/elements/, .../concepts/data-flow/, .../concepts/assets/,
+  .../concepts/llm/, .../api-reference/app/, .../api-reference/step/, .../api-reference/page/,
+  .../api-reference/assets/{dataset,model,schema}/, .../api-reference/store/,
+  .../api-reference/audit/, .../api-reference/triggers/, .../getting-started/, and the Help Center
+  articles on persistence, assets and outputs.
+checked: '2026-09-04'
+derived_from_spec: false
+spec_note: >-
+  No OpenAPI is published, so this graph is NOT derived from $ref links. It is read directly from
+  the Virtualitics SDK object reference — the provider's own published object model — and every
+  entity below names the documentation page that defines it.
+summary: >-
+  The Virtualitics domain model is a composition tree for AI Apps plus a small set of typed,
+  persistable assets. An App chains Steps; a Step renders a Page; a Page holds Sections; a Section
+  holds Cards; a Card holds Elements. Data flows between Steps through link objects and is
+  persisted as Assets (Dataset, Model, Schema) through a Store. Runs are called flows and are
+  recorded in App History.
+entities:
+- name: App
+  description: >-
+    Top-level container for a workflow. Constructed with name, description and is_shareable;
+    composed with `chain([...])` over Step instances. SingletonApp (1.52+) is a variant limited to
+    one active instance at a time.
+  docs: https://sdk.virtualitics.com/latest/api-reference/app/
+  relationships:
+  - has_many: Step
+    via: chain()
+- name: Step
+  description: >-
+    Unit of execution. Subclasses implement `run(flow_metadata)` to render, `action(flow_metadata)`
+    to handle input, and optionally `on_run_success(store_interface, ...)` for completion
+    callbacks. Constructed with title, description, parent, type (StepType, e.g. RESULTS,
+    DASHBOARD) and an initial page.
+  docs: https://sdk.virtualitics.com/latest/api-reference/step/
+  relationships:
+  - belongs_to: App
+  - has_one: Page
+  - has_one: InLink
+    via: self._inLink
+  - has_one: OutLink
+    via: self._outLink
+- name: Page
+  description: Container for a Step's user interface. Constructed with title and sections.
+  docs: https://sdk.virtualitics.com/latest/api-reference/page/
+  relationships:
+  - belongs_to: Step
+  - has_many: Section
+- name: Section
+  description: Named grouping within a Page. Section titles must be unique within a Page.
+  docs: https://sdk.virtualitics.com/latest/concepts/pages/
+  relationships:
+  - belongs_to: Page
+  - has_many: Card
+- name: Card
+  description: Titled content block holding an ordered list of Elements.
+  docs: https://sdk.virtualitics.com/latest/concepts/pages/
+  relationships:
+  - belongs_to: Section
+  - has_many: Element
+- name: Element
+  description: >-
+    Abstract UI component. Display (Table, PlotlyPlot, RichText, Image, Infographic), Input
+    (SingleDropdown, MultiDropdown, TextInput, NumericSlider, NumericRange, DateTimeRange,
+    DataSource, Button), Layout (Dashboard, Row, Column, Container, Accordion, SegmentedControl)
+    and AI (Chat). Every Element carries a unique `id`, addressed with
+    `page.get_element_by_id(id)`. Full inventory in components/virtualitics-components.yml.
+  docs: https://sdk.virtualitics.com/latest/api-reference/elements/
+  relationships:
+  - belongs_to: Card
+- name: Segment
+  description: A labelled pane inside a SegmentedControl; holds its own content list.
+  docs: https://sdk.virtualitics.com/latest/api-reference/elements/segmented-control/
+  relationships:
+  - belongs_to: SegmentedControl
+- name: Asset
+  description: >-
+    Base type for persistable, named platform objects. Assets are stored and retrieved through the
+    Store and survive across Steps and flows.
+  docs: https://sdk.virtualitics.com/latest/api-reference/assets/
+  subtypes:
+  - Dataset
+  - Model
+  - Schema
+- name: Dataset
+  description: A named, persistable tabular dataset wrapping a pandas DataFrame — `Dataset(name=..., data=df)`.
+  docs: https://sdk.virtualitics.com/latest/api-reference/assets/dataset/
+  relationships:
+  - is_a: Asset
+  - has_one: Schema
+- name: Model
+  description: A named, persistable trained model asset, stored and loaded like a Dataset.
+  docs: https://sdk.virtualitics.com/latest/api-reference/assets/model/
+  relationships:
+  - is_a: Asset
+- name: Schema
+  description: Column/type description associated with a Dataset.
+  docs: https://sdk.virtualitics.com/latest/api-reference/assets/schema/
+  relationships:
+  - is_a: Asset
+  - belongs_to: Dataset
+- name: Store / StoreInterface
+  description: >-
+    Persistence and retrieval facade for Assets and step state, passed into callbacks as
+    `store_interface`. Also the handle used for programmatic Table row selection (1.53+).
+  docs: https://sdk.virtualitics.com/latest/api-reference/store/
+  relationships:
+  - has_many: Asset
+- name: InLink / OutLink
+  description: >-
+    Per-Step data-flow objects. A Step writes with `self._outLink.<name> = value`; the next Step
+    reads with `self._inLink.<name>`. Values in _outLink are automatically persisted.
+  docs: https://sdk.virtualitics.com/latest/concepts/data-flow/
+  relationships:
+  - belongs_to: Step
+- name: Flow
+  description: >-
+    One execution of an App. Each row in the platform's App History table is a flow. Started by a
+    user, by the Automated Scheduler, by a Trigger, or by `trigger_flow_execution()` from another
+    Step. Carries `flow_metadata` into `run()`/`action()`.
+  docs: https://docs.virtualitics.com/hc/en-us/articles/34496480336019-Trigger-Another-App-from-a-Step
+  relationships:
+  - belongs_to: App
+- name: Trigger
+  description: >-
+    Event source that spawns flows (1.52+). S3Trigger (new files in an S3 bucket/prefix),
+    AssetTrigger (asset uploads/changes), PostgresTrigger (database table changes) and
+    CompositeTrigger (a combination). In-process to the platform; not a published webhook or event
+    contract.
+  docs: https://sdk.virtualitics.com/latest/api-reference/triggers/
+  relationships:
+  - has_many: Flow
+    via: spawns
+- name: Callback
+  description: >-
+    Handler bound to a Button `on_click` (1.51+). Authored with the standard_event_callback
+    decorator or supplied as a callback class such as AssetDownloadCallback.
+  docs: https://sdk.virtualitics.com/latest/api-reference/callbacks/
+  relationships:
+  - belongs_to: Button
+- name: Agent / Chat (Iris)
+  description: >-
+    LLM integration. An Agent shapes behaviour with system prompts; a Chat element exposes the
+    conversation in a Page. Iris is the product name for the natural-language interface.
+  docs: https://sdk.virtualitics.com/latest/api-reference/llm/agent/
+  relationships:
+  - has_many: Chat
+- name: Connection
+  description: >-
+    Configured external data source (databases and other systems) available to Apps; documented
+    for platform administrators and, separately, for developers.
+  docs: https://docs.virtualitics.com/hc/en-us/articles/36051170263571-Leveraging-Other-Data-Sources-with-Connections-Developer
+- name: User / Group / Role
+  description: >-
+    Platform identity and authorization objects — users, groups, access levels, user roles and
+    sharing permissions — administered in the platform rather than through a published API.
+  docs: https://docs.virtualitics.com/hc/en-us/articles/34964622116499-Exploring-Access-Levels-User-Roles-and-Sharing-Permissions
+id_conventions:
+  note: >-
+    No id prefix scheme or opaque-identifier format is published. Elements are addressed by an
+    author-assigned string `id` unique within a Page; Apps, Steps and Assets are addressed by
+    name.
+render: null
+render_note: No subway/ diagram exists for this provider.

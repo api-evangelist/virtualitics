@@ -1,0 +1,71 @@
+generated: '2026-09-04'
+method: searched
+source: https://virtualitics.com/security/
+checked: '2026-09-04'
+found: true
+trust_center:
+  kind: published security page (not a hosted trust portal)
+  url: https://virtualitics.com/security/
+  dedicated_subdomain: false
+  probed:
+  - host: trust.virtualitics.com
+    result: NXDOMAIN
+  note: >-
+    Virtualitics does not run a Vanta/Drata/SafeBase-style trust portal. It publishes a single
+    first-party security page that names its frameworks and offers a downloadable report, which is
+    the substance a buyer needs even without the portal.
+certifications:
+- name: NIST SP 800-171
+  status: compliant
+- name: CMMC
+  status: ready
+- name: SOC 2 Type 2
+  status: achieved
+  report_available: true
+- name: SOC 2 Type 3
+  status: in process
+  note: >-
+    As written on the page. SOC 3 is the public-report form of SOC 2; the page separately offers a
+    "Service Organization Control 3 (SOC 3) report" download.
+- name: CIS Top 20
+  status: listed
+- name: FIPS 140-2
+  status: claimed (cryptography)
+reports_available:
+- name: SOC 3 report
+  access: download from https://virtualitics.com/security/
+- name: SOC 2 Type 2 report
+  access: referenced on the security page
+control_areas:
+  product_security:
+  - Continuous internal and external vulnerability scanning
+  - Data encryption at rest and in transit
+  - Data validation
+  - Data retention
+  - Data isolation
+  - FIPS 140-2 cryptographic compliance
+  security_monitoring:
+  - Continuous network vulnerability scanning
+  - Continuous endpoint security monitoring
+  - Continuous cloud security monitoring
+  business_resiliency:
+  - Business continuity program
+  - Disaster recovery testing
+  workforce_security:
+  - Background checks
+  - Security awareness training
+  - Continuous phishing email campaigns
+government_posture:
+  statement: >-
+    "strict adherence to US Department of War security requirements and commercial security
+    standards and frameworks", validated by "external and independent assessments of our
+    cybersecurity risk management program".
+  networks: [NIPR, SIPR, JWICS]
+  platforms: [ADVANA, ODIN]
+  source: https://virtualitics.com/company-overview/
+gaps:
+- No FedRAMP or StateRAMP authorization is named.
+- No ISO/IEC 27001 certification is named.
+- No CMVP certificate number is given for the FIPS 140-2 claim.
+- No sub-processor list, data-residency statement or pen-test cadence is published.
+- No security.txt — see security/virtualitics-vulnerability-disclosure.yml.

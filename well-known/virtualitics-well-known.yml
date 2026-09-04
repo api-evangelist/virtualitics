@@ -1,0 +1,217 @@
+generated: '2026-09-04'
+method: probed
+source: >-
+  Direct HTTPS probes on 2026-09-04 of every host this record knows: the registrable domain
+  (virtualitics.com, www.virtualitics.com), the docs host (docs.virtualitics.com, a Zendesk Help
+  Center), the SDK documentation host (sdk.virtualitics.com -> predict-sdk.virtualitics.com,
+  CloudFront), and the account portal named in the pyVIP setup article
+  (accounts.virtualitics.com).
+summary: >-
+  Virtualitics publishes NO /.well-known/ discovery documents on any host. Every named path
+  returned 404 on virtualitics.com, docs.virtualitics.com and sdk.virtualitics.com. On
+  accounts.virtualitics.com several paths returned HTTP 200, but the body is an 8,134-byte
+  single-page-app shell served for every extension-less path — a negative control at
+  /.well-known/vt-negative-control-7f3ab91c returned the identical 200 and the identical
+  8,134 bytes, so none of those 200s is a document. No WellKnown, SecurityTxt or APICatalog
+  pointer is emitted from this probe.
+controls:
+  spa_catch_all_control: failed
+  spa_catch_all_control_host: accounts.virtualitics.com
+  spa_catch_all_control_path: /.well-known/vt-negative-control-7f3ab91c
+  spa_catch_all_control_status: 200
+  note: >-
+    accounts.virtualitics.com answers 200 with the same SPA shell for any extension-less path and
+    500 with {"error": "An unknown error occurred."} for any path ending in .json or .txt. Every
+    2xx recorded on that host below is therefore a catch-all, not a served document.
+hosts:
+- host: https://virtualitics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    file: null
+  - path: /.well-known/apis.json
+    status: 404
+    file: null
+  - path: /apis.json
+    status: 404
+    file: null
+  - path: /apis.yml
+    status: 404
+    file: null
+  - path: /.well-known/vt-negative-control-7f3ab91c.json
+    status: 404
+    file: null
+    note: negative control — correctly 404
+- host: https://docs.virtualitics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    file: null
+  - path: /.well-known/apis.json
+    status: 404
+    file: null
+  - path: /apis.json
+    status: 404
+    file: null
+  - path: /apis.yml
+    status: 404
+    file: null
+  - path: /.well-known/vt-negative-control-7f3ab91c.json
+    status: 404
+    file: null
+    note: negative control — correctly 404
+- host: https://sdk.virtualitics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+  - path: /.well-known/aauth-resource.json
+    status: 404
+    file: null
+  - path: /.well-known/apis.json
+    status: 404
+    file: null
+  - path: /apis.json
+    status: 404
+    file: null
+  - path: /apis.yml
+    status: 404
+    file: null
+  - path: /.well-known/vt-negative-control-7f3ab91c.json
+    status: 404
+    file: null
+    note: negative control — correctly 404 (S3/CloudFront NoSuchKey)
+- host: https://accounts.virtualitics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 500
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: null
+    note: SPA catch-all shell, not a document — see controls.spa_catch_all_control
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: null
+    note: SPA catch-all shell, not a document
+  - path: /.well-known/oauth-protected-resource
+    status: 200
+    file: null
+    note: SPA catch-all shell, not a document
+  - path: /.well-known/api-catalog
+    status: 200
+    file: null
+    note: SPA catch-all shell, not a document
+  - path: /.well-known/ai-plugin.json
+    status: 500
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 500
+    file: null
+  - path: /.well-known/agent.json
+    status: 500
+    file: null
+  - path: /.well-known/aauth-resource.json
+    status: 500
+    file: null
+  - path: /.well-known/apis.json
+    status: 500
+    file: null
+  - path: /apis.json
+    status: 500
+    file: null
+  - path: /apis.yml
+    status: 500
+    file: null
+  - path: /.well-known/vt-negative-control-7f3ab91c.json
+    status: 500
+    file: null
+    note: negative control (.json form)
+  - path: /.well-known/vt-negative-control-7f3ab91c
+    status: 200
+    file: null
+    note: >-
+      negative control (extension-less form) — returned 200 with the identical 8,134-byte SPA
+      shell as every other 200 on this host. This is what invalidates the 200s above.
+hosts_not_resolving:
+- host: api.virtualitics.com
+  result: NXDOMAIN
+  checked: '2026-09-04'
+  note: >-
+    The pyVIP documentation host published in PyPI metadata. No A or CNAME record from 8.8.8.8
+    or 1.1.1.1 — not probed for well-known paths because it does not resolve.
+- host: trust.virtualitics.com
+  result: NXDOMAIN
+- host: status.virtualitics.com
+  result: NXDOMAIN
+- host: mcp.virtualitics.com
+  result: NXDOMAIN

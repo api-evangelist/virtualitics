@@ -1,0 +1,81 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://sdk.virtualitics.com/latest/migration-guide/, https://sdk.virtualitics.com/latest/,
+  the full Virtualitics Help Center article index via
+  https://docs.virtualitics.com/api/v2/help_center/en-us/articles.json, DNS lookups of
+  status.virtualitics.com and trust.virtualitics.com, and PyPI release metadata for
+  virtualitics-sdk, virtualitics-cli and pyvip.
+checked: '2026-09-04'
+summary: >-
+  Virtualitics versions its SDK per minor band and publishes a migration guide with explicit
+  breaking-change and action-required sections — a real, if version-keyed, lifecycle discipline.
+  It publishes NO status page, NO deprecation policy, NO SLA and NO support-window statement, and
+  it serves no Sunset or Deprecation headers because there is no HTTP API to serve them on.
+versioning:
+  scheme: major.minor.patch on the SDK, CLI and pyVIP packages; the platform is versioned as VAIP <major>.<minor> (e.g. VAIP 1.23+, VAIP 1.22.1)
+  documented: true
+  docs: https://sdk.virtualitics.com/latest/migration-guide/
+  api_versioning: not applicable — no HTTP API surface is published
+  docs_versioning: >-
+    The SDK documentation site is version-addressed (sdk.virtualitics.com/<version>/ with a
+    /latest/ alias); its sitemap enumerates 1.72.0 paths while /latest/ currently serves 1.61.x
+    content.
+  platform_version_gating: >-
+    Help Center tutorials are explicitly gated on platform version — "App Building Guide 1: Hello,
+    World! (VAIP 1.23+)" — and superseded material is labelled rather than deleted, e.g.
+    "Immerse in Virtual Reality (VR) - VAIP 1.22.1 and Earlier".
+deprecation:
+  policy_published: false
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  notice_period: null
+  observed_practice: >-
+    Breaking removals ship inside a minor version with a documented migration path and no
+    announced deprecation window. The 1.51.0 removal of the entire CustomEvent family is the
+    clearest example: "CustomEvent has been fully removed. All CustomEvent subclasses are gone."
+    The guide supplies before/after code but no prior-deprecation release, no shim and no dated
+    end-of-support.
+  source: https://sdk.virtualitics.com/latest/migration-guide/
+support_window:
+  published: false
+  note: >-
+    No statement of which SDK minors remain supported. The migration guide covers 1.46.x-1.54.x
+    while the current release is 1.62.0, leaving seven undocumented minors.
+status_page:
+  present: false
+  url: null
+  evidence:
+  - host: status.virtualitics.com
+    result: NXDOMAIN
+    checked: '2026-09-04'
+  note: >-
+    No status page on any Virtualitics host and none linked from the site, docs or SDK
+    documentation. Deployments are customer-operated (including on NIPR/SIPR/JWICS), which is a
+    plausible reason a vendor status page would not exist — but nothing public says so.
+sla:
+  published: false
+  url: null
+changelog:
+  present: true
+  kind: version-keyed migration guide (not dated)
+  url: https://sdk.virtualitics.com/latest/migration-guide/
+  artifact: changelog/virtualitics-changelog.yml
+  empty_release_notes_section: https://docs.virtualitics.com/hc/en-us/sections/21955755696147-Release-Notes-by-Date
+deprecated_operations: []
+deprecated_operations_note: >-
+  Cannot be derived — no OpenAPI is published. Deprecated SDK classes are recorded in
+  components/virtualitics-components.yml under removed_components.
+decay_signals:
+- signal: pyVIP documentation host is gone
+  detail: >-
+    api.virtualitics.com, the only project URL pyVIP publishes on PyPI and the host every search
+    result points at for the pyVIP API reference, returns NXDOMAIN from 8.8.8.8 and 1.1.1.1 as of
+    2026-09-04. pyVIP itself is still maintained (1.27.1, 2026-02-11); its reference documentation
+    is not reachable.
+  checked: '2026-09-04'
+- signal: Help Center pyVIP articles are stale
+  detail: >-
+    The three pyVIP articles were last updated 2024-02-20, 2024-10-17 and 2024-02-20 — roughly two
+    years behind the current 1.27.1 package.

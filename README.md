@@ -64,5 +64,38 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Virtualitics is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.nasdaqprivatemarket.com/
+Virtualitics, Inc. is a Pasadena, California AI software company founded in 2016 on more than a decade
+of research at Caltech and NASA's Jet Propulsion Laboratory. It builds the Virtualitics AI Platform
+(VAIP), Virtualitics Explore, Virtualitics Predict, the Integrated Readiness Optimization (IRO)
+application suite, and Iris — a natural-language agent over platform data — largely for U.S. defense,
+government and critical-infrastructure customers.
+
+Its developer surface is **Python-first, not HTTP-first**. There is no published OpenAPI, GraphQL,
+AsyncAPI, gRPC or SOAP contract on any Virtualitics host. What the company does publish is a real and
+maintained programming contract:
+
+- **Virtualitics SDK** (`virtualitics-sdk` on PyPI) — the framework for authoring AI Apps, with a
+  versioned documentation site at <https://sdk.virtualitics.com/latest/> and a migration guide that
+  records breaking changes per minor version.
+- **Virtualitics CLI** (`virtualitics-cli`, the `vaip` command) — the only published path for
+  packaging and deploying an App into a customer tenant.
+- **pyVIP** (`pyvip`) — the Python API that drives Virtualitics Explore over a WebSocket.
+
+### Notable findings from the 2026-09-04 profiling pass
+
+- **`api.virtualitics.com` no longer resolves.** It is the only project URL pyVIP publishes on PyPI
+  and the host every search result points at for the pyVIP API reference. NXDOMAIN from both 8.8.8.8
+  and 1.1.1.1. The package is still maintained (1.27.1, 2026-02-11); its reference documentation is
+  not reachable.
+- **The vulnerability reporting policy is at the wrong URL.**
+  <https://virtualitics.com/vulnerability-reporting-policy/> returns 200 with that title and serves
+  the Terms of Use. The real policy — with safe harbor, a 90-day disclosure window and a
+  `security@virtualitics.com` channel — lives at <https://virtualitics.com/disclosures/>.
+- **No `security.txt`** on any host, despite a genuine disclosure program existing.
+- **No pricing page.** `/pricing/` returns a soft-200 serving the homepage and is absent from the
+  site's own sitemap; the motion is contact-sales.
+- **No `/.well-known/` documents** anywhere. `accounts.virtualitics.com` answers 200 for every
+  extension-less path with the same 8,134-byte SPA shell — a negative control confirms those 200s
+  are catch-alls, not documents.
+
+See `apis.yml` for the full artifact index.

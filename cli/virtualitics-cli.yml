@@ -1,0 +1,100 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://docs.virtualitics.com/hc/en-us/articles/34015231987347-Installing-the-Virtualitics-SDK-and-CLI-Packages,
+  https://docs.virtualitics.com/hc/en-us/articles/34080541869715-Deploying-an-App-Using-the-Command-Line-Interface-CLI,
+  https://sdk.virtualitics.com/latest/getting-started/, https://sdk.virtualitics.com/latest/faq/,
+  https://pypi.org/pypi/virtualitics-cli/json
+checked: '2026-09-04'
+name: Virtualitics CLI
+binary: vaip
+package: virtualitics-cli
+package_url: https://pypi.org/project/virtualitics-cli/
+version: 2.0.4
+published: '2026-05-12'
+purpose: >-
+  Initialize, package and deploy Custom AI Apps from a local machine into a Virtualitics AI
+  Platform tenant. It is the only published deployment path for a Virtualitics App and the only
+  first-party command-line surface the company ships.
+install:
+- method: pip
+  command: pip install virtualitics-cli
+  prerequisites:
+  - Python (the install article states "We currently support version 3.11"; the published 2.0.4 wheel declares requires_python >=3.14,<3.15)
+  - a Python package manager (pip)
+  - a Python environment manager (venv recommended)
+  source: https://docs.virtualitics.com/hc/en-us/articles/34015231987347-Installing-the-Virtualitics-SDK-and-CLI-Packages
+verify: vaip --help
+commands:
+- command: vaip init
+  group: project
+  description: >-
+    Initialize a Virtualitics AI Platform App project structure in the current directory. Prompts
+    for Project name (no spaces or special characters besides '_'), Version, Description, Authors
+    (name and email pair) and Licenses, and writes pyproject.toml plus the project folders.
+  source: https://docs.virtualitics.com/hc/en-us/articles/34015231987347-Installing-the-Virtualitics-SDK-and-CLI-Packages
+- command: vaip config
+  group: auth
+  description: >-
+    Create the configuration file holding the API key, username and host to deploy to. The host is
+    the customer's own VAIP tenant. See authentication/virtualitics-authentication.yml.
+  source: https://docs.virtualitics.com/hc/en-us/articles/34015231987347-Installing-the-Virtualitics-SDK-and-CLI-Packages
+- command: vaip build
+  group: package
+  description: >-
+    Build a VAIP App Python wheel from pyproject.toml in the current directory. Prompts
+    "Build a wheel using pyproject.toml in current directory?" and on success reports
+    "Successfully built VAIP App, check your /dist directory."
+  requires: cwd must be the directory containing pyproject.toml
+  source: https://docs.virtualitics.com/hc/en-us/articles/34080541869715-Deploying-an-App-Using-the-Command-Line-Interface-CLI
+- command: vaip deploy
+  group: deploy
+  description: >-
+    Deploy the built wheel to the Virtualitics AI Platform. On completion lists the Apps that
+    installed, failed to install, and were removed relative to the previously deployed wheel for
+    this project. Deployed Apps appear under the "Custom" tab of the platform Home page.
+  source: https://docs.virtualitics.com/hc/en-us/articles/34080541869715-Deploying-an-App-Using-the-Command-Line-Interface-CLI
+- command: vaip destroy
+  group: deploy
+  description: >-
+    Delete the VAIP module named by the project name in pyproject.toml, and every App in that
+    module, from the deployment. Prompts for the project name. Local files are untouched; the Apps
+    can be restored by rebuilding and redeploying.
+  reversible: true
+  source: https://docs.virtualitics.com/hc/en-us/articles/34080541869715-Deploying-an-App-Using-the-Command-Line-Interface-CLI
+- command: virtualitics-cli upload <wheel> --host <url> --username <user>
+  group: deploy
+  description: >-
+    One-shot upload of a built wheel to a named platform host, documented in the SDK FAQ as the
+    alternative to local docker-compose development.
+  source: https://sdk.virtualitics.com/latest/faq/
+  note: >-
+    Invoked as `virtualitics-cli` rather than `vaip` in this source. Both invocations appear in
+    first-party documentation; recorded as published rather than reconciled.
+- command: vaip --help
+  group: meta
+  description: Print the VAIP help message; used in the install article to verify the installation.
+  source: https://docs.virtualitics.com/hc/en-us/articles/34015231987347-Installing-the-Virtualitics-SDK-and-CLI-Packages
+flows:
+- name: First deployment
+  steps:
+  - pip install virtualitics-cli (in an activated venv)
+  - vaip init
+  - vaip config
+  - add App .py files to the project folder
+  - vaip build
+  - vaip deploy
+  - refresh the tenant and open Home -> Custom
+- name: Remove one App
+  steps:
+  - delete that App's .py file from the project folder
+  - vaip build
+  - vaip deploy   # the removed App is reported under "Apps removed"
+- name: Remove an entire project
+  steps:
+  - vaip destroy
+  - enter the project name from pyproject.toml
+  reversal: rebuild and redeploy — local files are not deleted
+gaps:
+- No published man page, --version output, exit-code table or shell completion.
+- No command reference page; the surface above is assembled from tutorial prose.

@@ -1,0 +1,144 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  https://virtualitics.com/security/ (the company's published security, compliance, standards and
+  certifications page), https://virtualitics.com/company-overview/,
+  https://docs.virtualitics.com/hc/en-us/articles/21926415922323-Setting-Password-Security-and-Configuring-Single-Sign-On-SSO,
+  and the contract-discovery sweep recorded in well-known/virtualitics-well-known.yml.
+checked: '2026-09-04'
+summary: >-
+  Virtualitics publishes a substantive SECURITY compliance posture — NIST SP 800-171, CMMC
+  readiness, SOC 2 Type 2 (with a downloadable SOC 3 report), CIS Top 20 and FIPS 140-2
+  cryptography — aimed at U.S. defense and government buyers. It publishes NO API-level or
+  interoperability conformance at all: no OpenAPI, no OAuth 2.0/OIDC discovery, no RFC 9457
+  problem+json, no documented pagination or idempotency, and no domain data standard. The two
+  halves of this file are deliberately separate: the certifications are real and evidenced; the
+  API conformance entries are honest negatives.
+compliance:
+- id: nist-sp-800-171
+  name: NIST SP 800-171
+  status: compliant
+  conforms: true
+  evidence: https://virtualitics.com/security/
+  evidence_text: 'listed under "Security frameworks, compliance, standards and certifications (achieved, or in process)"; also stated separately as "NIST SP 800-171 compliant"'
+- id: cmmc
+  name: Cybersecurity Maturity Model Certification (CMMC)
+  status: ready
+  conforms: false
+  evidence: https://virtualitics.com/security/
+  evidence_text: 'stated as "CMMC ready" — readiness, not a certification'
+- id: soc-2-type-2
+  name: SOC 2 Type 2
+  status: achieved
+  conforms: true
+  evidence: https://virtualitics.com/security/
+  evidence_text: 'listed in the certifications block; the page offers a "SOC 2 TYPE 2 report"'
+- id: soc-2-type-3
+  name: SOC 2 Type 3
+  status: in-process
+  conforms: false
+  evidence: https://virtualitics.com/security/
+  evidence_text: >-
+    listed in the same block, which is headed "achieved, or in process". The page also offers a
+    "Service Organization Control 3 (SOC 3) report" for download — SOC 3 is the public-report form
+    of SOC 2; "SOC 2 Type 3" as written on the page is not a standard designation.
+- id: cis-controls
+  name: CIS Top 20 Critical Security Controls
+  status: listed
+  conforms: true
+  evidence: https://virtualitics.com/security/
+- id: fips-140-2
+  name: FIPS 140-2
+  status: claimed
+  conforms: true
+  scope: cryptography
+  evidence: https://virtualitics.com/security/
+  evidence_text: '"Encryption FIPS 140-2, cryptographic compliant"'
+  note: >-
+    The page does not name a CMVP certificate number or validated module, so this is a published
+    claim rather than a verifiable validation reference.
+- id: dod-security-requirements
+  name: US Department of War (DoD) security requirements
+  status: claimed
+  conforms: true
+  evidence: https://virtualitics.com/security/
+  evidence_text: >-
+    "strict adherence to US Department of War security requirements"; deployment on NIPR, SIPR and
+    JWICS is stated on https://virtualitics.com/company-overview/
+- id: fedramp
+  name: FedRAMP
+  conforms: false
+  evidence: https://virtualitics.com/security/
+  evidence_text: >-
+    Not named anywhere on the security page or elsewhere on the site. Recorded as a negative
+    because FedRAMP is the government regime's headline authorization and its absence is
+    informative for a public-sector buyer, not because it is required of this vendor.
+- id: iso-27001
+  name: ISO/IEC 27001
+  conforms: false
+  evidence: https://virtualitics.com/security/
+  evidence_text: not named on the security page
+api_conformance:
+- id: openapi
+  name: OpenAPI Specification
+  conforms: false
+  evidence: >-
+    No OpenAPI/Swagger document at /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json,
+    /api-docs or /redoc on virtualitics.com, docs.virtualitics.com or sdk.virtualitics.com
+    (all 404, 2026-09-04); none linked from any documentation page.
+- id: oauth2
+  name: OAuth 2.0
+  conforms: false
+  evidence: >-
+    No /.well-known/oauth-authorization-server on any resolving host; authentication is a
+    long-lived API token minted in the Account Portal. See
+    authentication/virtualitics-authentication.yml.
+- id: oidc
+  name: OpenID Connect
+  conforms: false
+  evidence: >-
+    SSO is configurable per tenant against the customer's IdP, but no
+    /.well-known/openid-configuration is served by Virtualitics and no protocol is published.
+    Evidence: https://docs.virtualitics.com/hc/en-us/articles/21926415922323-Setting-Password-Security-and-Configuring-Single-Sign-On-SSO
+- id: rfc9457
+  name: 'RFC 9457: Problem Details for HTTP APIs'
+  conforms: false
+  evidence: No HTTP error envelope is published; SDK errors surface as in-app messages.
+- id: rfc8594
+  name: 'RFC 8594: Sunset HTTP Header'
+  conforms: false
+  evidence: No HTTP surface; no deprecation policy published. See lifecycle/virtualitics-lifecycle.yml.
+- id: idempotency
+  name: Idempotency keys
+  conforms: false
+  evidence: No idempotency mechanism documented. See conventions/virtualitics-conventions.yml.
+- id: pagination
+  name: Documented pagination
+  conforms: false
+  evidence: No HTTP collection endpoints are published.
+- id: mcp
+  name: Model Context Protocol
+  conforms: false
+  evidence: See mcp/virtualitics-mcp.yml — no server, hosted or local.
+- id: a2a
+  name: A2A Agent Card
+  conforms: false
+  evidence: >-
+    /.well-known/agent-card.json and /.well-known/agent.json returned 404 on virtualitics.com,
+    docs.virtualitics.com and sdk.virtualitics.com and 500 on accounts.virtualitics.com,
+    2026-09-04.
+domain_standard:
+  found: false
+  market: defense and government analytics / decision support
+  checked_against:
+  - dcat
+  - ckan
+  - eidas
+  - fedramp
+  - open-data-charter
+  note: >-
+    Checked against the `government` regime's standards list in the Kin Score rubric. None is
+    declared by Virtualitics in a contract or in documentation. This market's interoperability
+    standards are largely programmatic (ADVANA, ODIN, service-branch data platforms) rather than
+    published API specifications, and Virtualitics describes integration with those environments in
+    prose only. REWARD-ONLY: recorded as absent, not as a deficiency.

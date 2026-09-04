@@ -1,0 +1,24 @@
+# Virtualitics
+
+> Virtualitics
+> Last updated: 2026-09-04
+
+## Search
+
+- Search URL: `https://virtualitics.com?s={query}`
+
+## Recent Content
+
+- [Dequeue Bricksforge Scripts](https://virtualitics.com/code-snippet/dequeue-bricksforge-scripts/)
+- [Sitemap](https://virtualitics.com/sitemap/)
+- [Defer Render-Blocking CleanTalk Assets](https://virtualitics.com/code-snippet/defer-render-blocking-cleantalk-assets/)
+- [Dequeue Admin/Media Assets — Front End](https://virtualitics.com/code-snippet/dequeue-admin-media-assets-front-end/)
+- [Fix oversized image sizes attr — Awards & Publications galleries](https://virtualitics.com/code-snippet/fix-oversized-image-sizes-attr-awards-publications-galleries/)
+
+## Complete Sitemap
+
+For a comprehensive list of all URLs, see: https://virtualitics.com/sitemaps.xml
+
+---
+
+*This file is dynamically generated and highlights our most important content.*

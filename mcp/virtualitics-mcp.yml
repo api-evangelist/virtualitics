@@ -1,0 +1,45 @@
+generated: '2026-09-04'
+method: searched
+source: >-
+  Web search for a Virtualitics MCP server; DNS lookup of mcp.virtualitics.com (NXDOMAIN);
+  JSON-RPC tools/list POST to https://virtualitics.com/mcp (404) and
+  https://sdk.virtualitics.com/mcp (403); a full read of the Virtualitics SDK documentation at
+  https://sdk.virtualitics.com/latest/ including the LLM/Iris section
+  (https://sdk.virtualitics.com/latest/api-reference/llm/agent/ and .../llm/chat/); and the
+  Virtualitics Help Center article index.
+checked: '2026-09-04'
+status: absent
+summary: >-
+  Virtualitics publishes no Model Context Protocol server, hosted or local. The company does ship
+  an agent product — Iris, the natural-language interface over platform data, exposed to app
+  authors through the SDK's LLM module (Agent, Chat) — but Iris is addressed from inside a
+  Virtualitics App in Python, not over MCP, and no MCP endpoint, package or configuration snippet
+  is published anywhere on the provider's public surface.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: unknown
+  verified: searched
+tools: []
+derivation_blocked: >-
+  No candidate tool list was derived. Deriving MCP tools requires an OpenAPI to project from, and
+  Virtualitics publishes no OpenAPI, Swagger, AsyncAPI, GraphQL or gRPC contract on any host —
+  see the contract-discovery record in conventions/virtualitics-conventions.yml.
+probes:
+- url: https://virtualitics.com/mcp
+  method: POST tools/list
+  status: 404
+- url: https://sdk.virtualitics.com/mcp
+  method: POST tools/list
+  status: 403
+- host: mcp.virtualitics.com
+  method: DNS A/CNAME
+  status: NXDOMAIN
+adjacent_agent_surface:
+  name: Iris
+  kind: in-product LLM agent
+  addressed_from: Virtualitics SDK (Python), virtualitics_sdk LLM module
+  docs: https://sdk.virtualitics.com/latest/concepts/llm/
+  mcp: false
