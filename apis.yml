@@ -1,16 +1,15 @@
 aid: virtualitics
 name: Virtualitics
-description: >-
-  Virtualitics, Inc. is a Pasadena, California AI software company founded in 2016 on more than a
-  decade of research at Caltech and NASA's Jet Propulsion Laboratory. It builds the Virtualitics AI
-  Platform (VAIP), a secure deployment target for mission-critical AI Apps; Virtualitics Explore, a
-  3D/immersive data exploration client; Virtualitics Predict; the Integrated Readiness Optimization
-  (IRO) application suite; and Iris, a natural-language AI agent over platform data. Its developer
-  surface is Python-first rather than HTTP-first — the Virtualitics SDK (virtualitics-sdk) for
-  authoring multi-step Apps, the Virtualitics CLI (virtualitics-cli, the `vaip` command) for
-  packaging and deploying them into a customer tenant, and pyVIP, a Python API that drives
-  Virtualitics Explore over a WebSocket connection. Deployments run on customer-controlled hosts
-  including NIPR, SIPR, JWICS, ADVANA and ODIN across the U.S. military services.
+description: Virtualitics, Inc. is a Pasadena, California AI software company founded in 2016 on more
+  than a decade of research at Caltech and NASA's Jet Propulsion Laboratory. It builds the Virtualitics
+  AI Platform (VAIP), a secure deployment target for mission-critical AI Apps; Virtualitics Explore, a
+  3D/immersive data exploration client; Virtualitics Predict; the Integrated Readiness Optimization (IRO)
+  application suite; and Iris, a natural-language AI agent over platform data. Its developer surface is
+  Python-first rather than HTTP-first — the Virtualitics SDK (virtualitics-sdk) for authoring multi-step
+  Apps, the Virtualitics CLI (virtualitics-cli, the `vaip` command) for packaging and deploying them into
+  a customer tenant, and pyVIP, a Python API that drives Virtualitics Explore over a WebSocket connection.
+  Deployments run on customer-controlled hosts including NIPR, SIPR, JWICS, ADVANA and ODIN across the
+  U.S. military services.
 image: https://virtualitics.com/wp-content/uploads/2026/06/Virtualitics_Logo_Black.png
 url: https://raw.githubusercontent.com/api-evangelist/virtualitics/refs/heads/main/apis.yml
 x-type: company
@@ -23,6 +22,17 @@ tags:
 - Artificial Intelligence
 - Data Analytics
 - Data Visualization
+- Machine-Learning
+- Defense
+- Government
+- Python
+- SDK
+- Command Line Interface
+tags_raw:
+- Company
+- Artificial Intelligence
+- Data Analytics
+- Data Visualization
 - Machine Learning
 - Defense
 - Government
@@ -30,18 +40,22 @@ tags:
 - SDK
 - Command Line Interface
 apis:
-- aid: virtualitics-ai-platform
+- aid: virtualitics:virtualitics-ai-platform
   name: Virtualitics AI Platform (VAIP) Developer Experience
   image: https://virtualitics.com/wp-content/uploads/2026/06/Virtualitics_Logo_Black.png
-  description: >-
-    The developer surface of the Virtualitics AI Platform. Developers author AI Apps in Python with
-    the Virtualitics SDK (App, Step, Page, Section, Card, Elements, Assets, LLM/Iris, Store, Audit,
-    Triggers), build a wheel and deploy it into their own VAIP tenant with the `vaip` CLI. There is
-    no publicly documented HTTP contract: the platform is delivered per-customer at a tenant host
-    and the SDK/CLI are the published integration path.
+  description: 'The developer surface of the Virtualitics AI Platform. Developers author AI Apps in Python
+    with the Virtualitics SDK (App, Step, Page, Section, Card, Elements, Assets, LLM/Iris, Store, Audit,
+    Triggers), build a wheel and deploy it into their own VAIP tenant with the `vaip` CLI. There is no
+    publicly documented HTTP contract: the platform is delivered per-customer at a tenant host and the
+    SDK/CLI are the published integration path.'
   humanURL: https://docs.virtualitics.com/hc/en-us/categories/34003471469587-Virtualitics-Developer-Experience
   baseURL: https://{tenant}.virtualitics.com
   tags:
+  - Ai Apps
+  - SDK
+  - CLI
+  - Python
+  tags_raw:
   - AI Apps
   - SDK
   - CLI
@@ -65,16 +79,15 @@ apis:
     url: data-model/virtualitics-data-model.yml
   - type: ChangeLog
     url: changelog/virtualitics-changelog.yml
-- aid: virtualitics-explore-python-api
+- aid: virtualitics:virtualitics-explore-python-api
   name: Virtualitics Explore Python API (pyVIP)
   image: https://virtualitics.com/wp-content/uploads/2026/06/Virtualitics_Logo_Black.png
-  description: >-
-    pyVIP is the Virtualitics Python API for Virtualitics Explore. It runs over a WebSocket
-    connection between Virtualitics Explore (server) and a Python session (client), launched from
-    the API section of the Explore Settings window on a user-chosen port, and authenticated with an
-    API Token generated in the Virtualitics Account Portal (VIP_AUTH_TOKEN), optionally with a
-    client-supplied encryption key (VIP_ENCRYPTION_KEY). Because the server is the user's own
-    Explore instance there is no vendor-hosted base URL.
+  description: pyVIP is the Virtualitics Python API for Virtualitics Explore. It runs over a WebSocket
+    connection between Virtualitics Explore (server) and a Python session (client), launched from the
+    API section of the Explore Settings window on a user-chosen port, and authenticated with an API Token
+    generated in the Virtualitics Account Portal (VIP_AUTH_TOKEN), optionally with a client-supplied encryption
+    key (VIP_ENCRYPTION_KEY). Because the server is the user's own Explore instance there is no vendor-hosted
+    base URL.
   humanURL: https://docs.virtualitics.com/hc/en-us/articles/25110834780435-Using-the-Virtualitics-Python-API-pyVIP
   tags:
   - Data Visualization
