@@ -22,7 +22,7 @@ tags:
 - Artificial Intelligence
 - Data Analytics
 - Data Visualization
-- Machine-Learning
+- Machine Learning
 - Defense
 - Government
 - Python
@@ -39,6 +39,7 @@ tags_raw:
 - Python
 - SDK
 - Command Line Interface
+- Machine-Learning
 apis:
 - aid: virtualitics:virtualitics-ai-platform
   name: Virtualitics AI Platform (VAIP) Developer Experience
