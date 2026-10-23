@@ -5,7 +5,7 @@
       "source": "https://virtualitics.com/feed/",
       "feed_url": "https://virtualitics.com/feed/",
       "title": "",
-      "saved": 1,
+      "saved": 0,
       "method": "feed"
     },
     {
@@ -16,6 +16,13 @@
       "method": "discovered"
     },
     {
+      "source": "https://virtualitics.com/virtualitics-blog/blog/feed/",
+      "feed_url": "https://virtualitics.com/virtualitics-blog/blog/feed/",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
+    {
       "source": "https://virtualitics.com/contact-us/blog/feed/",
       "feed_url": "https://virtualitics.com/contact-us/blog/feed/",
       "title": "",
@@ -23,6 +30,6 @@
       "method": "feed"
     }
   ],
-  "post_count": 1,
-  "fetched": "2026-10-10T13:15:00Z"
+  "post_count": 10,
+  "fetched": "2026-10-17T14:53:57Z"
 }
